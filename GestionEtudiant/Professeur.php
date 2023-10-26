@@ -11,8 +11,8 @@ class Professeur extends Etudiant implements Iprofesseur
     public function __construct($nom, $prenom, $dateNais, $matricule, $voiture, $salaire, $specialites)
     {
         parent::__construct($nom, $prenom, $dateNais, $matricule);
-        $this->voiture = $voiture;
-        $this->salaire = $salaire;
+        $this->setVoiture($voiture);
+        $this->setSalaire($salaire);
         $this->specialites = $specialites;
     }
 
@@ -55,9 +55,13 @@ class Professeur extends Etudiant implements Iprofesseur
      */
     public function setSalaire($salaire)
     {
-        $this->salaire = $salaire;
+        if (is_numeric($salaire) && $salaire > 1000) {
+            $this->salaire = $salaire;
 
-        return $this;
+            return $this;
+        } else {
+            throw new Exception("Salire Non Valide", 1);
+        }
     }
 
     /**
@@ -75,9 +79,13 @@ class Professeur extends Etudiant implements Iprofesseur
      */
     public function setSpecialites($specialites)
     {
-        $this->specialites = $specialites;
+        if (is_string($specialites)) {
+            $this->specialites = $specialites;
 
-        return $this;
+            return $this;
+        } else {
+            throw new Exception("Verifie le specialite et arrete de faire le malin", 1);
+        }
     }
     public function EvaluationEtudiant($DateEvaluation)
     {
